@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link 
+      rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" 
+      integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" 
+      crossorigin="anonymous">
+    <link 
+      rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" 
+      integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" 
+      crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <title>Weather Dashboard</title>
+  </head>
+
+  <body>
+
+    <!-- header -->
+    <header class="bg-dark p-3 mb-3">
+      <div class="text-center text-white">
+        <h1>Weather Dashboard</h1>
+      </div>
+    </header>
+    <!-- end header -->
+
+    <!-- main container -->
+    <div class="container">
+      <div class="row">
+
+        <!-- search card -->
+        <div class="col-3">
+          <div class="card">
+            <div class="card-body bg-light">
+            <h5 class="card-title h4 mb-3">Search for a City</h5>
+              <div class="input-group">
+                <input id="search-city" type="text" class="form-control">
+                <button id="search-button" type="button" class="btn btn-primary">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end search card -->
+
+        <!-- weather -->
+        <div class="col-9">
+
+          <!-- current weather card-->
+          <div class="row mb-3"> 
+            <div class="col">
+              <div class="card">
+                <div class="card-body bg-light">
+                <h5 class="card-title h3 mb-3"><span id= "city-name">City Name</span> <span id= "current-date">Date</span></h5>
+                  <p class="card-text">Temperature: <span id="city-temperature"></span></p>
+                  <p class="card-text">Humidity: <span id="city-humidity"></span></p>
+                  <p class="card-text">Wind Speed: <span id="city-wind-speed"></span></p>
+                  <p class="card-text">UV Index: <span id="city-uv-index"></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end current weather card -->
+
+          <!-- future weather card -->
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                  <div class="card-body bg-light">
+                  <h5 class="city-name h3 mb-3">5-Day Forecast:</h5>
+                    <div class="row">
+
+                      <!-- future day 1 -->
+                      <div class="col">
+                        <div class="card">
+                          <div class="card-body">
+                          <h5 class="card-title"><span id="day1">Day 1</span></h5>
+                            <p class="card-text">Temp:<span id="day1-temperature"></span></p>
+                            <p class="card-text">Humidity: <span id="day1-humidity"></span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end future day 1 -->
+
+                      <!-- future day 2 -->
+                      <div class="col">
+                        <div class="card">
+                          <div class="card-body">
+                          <h5 class="card-title"><span id="day2">Day 2</span></h5>
+                            <p class="card-text">Temp:<span id="day2-temperature"></span></p>
+                            <p class="card-text">Humidity: <span id="day2-humidity"></span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end future day 2 -->
+
+                      <!-- future day 3 -->
+                      <div class="col">
+                        <div class="card">
+                          <div class="card-body">
+                          <h5 class="card-title"><span id="day3">Day 3</span></h5>
+                            <p class="card-text">Temp:<span id="day3-temperature"></span></p>
+                            <p class="card-text">Humidity: <span id="day3-humidity"></span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end future day 3 -->
+
+                      <!-- future day 4 -->
+                      <div class="col">
+                        <div class="card">
+                          <div class="card-body">
+                          <h5 class="card-title"><span id="day4">Day 4</span></h5>
+                            <p class="card-text">Temp:<span id="day4-temperature"></span></p>
+                            <p class="card-text">Humidity: <span id="day4-humidity"></span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end future day 4 -->
+
+                      <!-- future day 5 -->
+                      <div class="col">
+                        <div class="card">
+                          <div class="card-body">
+                          <h5 class="card-title"><span id="day5">Day 5</span></h5>
+                            <p class="card-text">Temp:<span id="day5-temperature"></span></p>
+                            <p class="card-text">Humidity: <span id="day5-humidity"></span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end future day 5 -->
+
+                    </div>
+                  </div>
+              </div>
+            </div>              
+          </div>
+          <!-- end future weather card -->
+
+        </div>
+        <!-- end weather -->
+
+      </div>
+    </div>
+    <!-- end main container -->
+    
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
+        crossorigin="anonymous">
+    </script>
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js" 
+        integrity="sha512-XKa9Hemdy1Ui3KSGgJdgMyYlUg1gM+QhL6cnlyTe2qzMCYm4nAZ1PsVerQzTTXzonUR+dmswHqgJPuwCq1MaAg==" 
+        crossorigin="anonymous">
+    </script>
+    <script src="./assets/js/script.js"></script>
+
+  </body>
+</html>
