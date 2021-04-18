@@ -54,17 +54,21 @@
         <!-- end search card -->
 
         <!-- weather -->
-        <div class="col-9">
+        <div class="col-9 fade" id="weather-container">
 
           <!-- current weather card-->
           <div class="row mb-3"> 
             <div class="col">
               <div class="card">
                 <div class="card-body bg-light">
-                <h5 class="card-title h3 mb-3"><span id= "city-name">City Name</span> <span id= "current-date">Date</span></h5>
-                  <p class="card-text">Temperature: <span id="city-temperature"></span></p>
-                  <p class="card-text">Humidity: <span id="city-humidity"></span></p>
-                  <p class="card-text">Wind Speed: <span id="city-wind-speed"></span></p>
+                <h5 class="card-title h3">
+                  <span id= "city-name">City Name</span>
+                  <span id= "current-date">Date</span>
+                  <img id= "current-icon"></img>  
+                </h5>
+                  <p class="card-text">Temperature: <span id="city-temperature"></span> °F</p>
+                  <p class="card-text">Humidity: <span id="city-humidity"></span>%</p>
+                  <p class="card-text">Wind Speed: <span id="city-wind-speed"></span> MPH</p>
                   <p class="card-text">UV Index: <span id="city-uv-index"></span></p>
                 </div>
               </div>
@@ -154,15 +158,21 @@
     </div>
     <!-- end main container -->
     
+
     <script 
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
-        crossorigin="anonymous">
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" 
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" 
+      crossorigin="anonymous">
     </script>
     <script 
-        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js" 
-        integrity="sha512-XKa9Hemdy1Ui3KSGgJdgMyYlUg1gM+QhL6cnlyTe2qzMCYm4nAZ1PsVerQzTTXzonUR+dmswHqgJPuwCq1MaAg==" 
-        crossorigin="anonymous">
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
+      crossorigin="anonymous">
+    </script>
+    <script 
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js" 
+      integrity="sha512-XKa9Hemdy1Ui3KSGgJdgMyYlUg1gM+QhL6cnlyTe2qzMCYm4nAZ1PsVerQzTTXzonUR+dmswHqgJPuwCq1MaAg==" 
+      crossorigin="anonymous">
     </script>
     <script src="./assets/js/script.js"></script>
 
