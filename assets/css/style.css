@@ -1,3 +1,26 @@
 #city-name {
   text-transform: capitalize;
 }
+
+.custom-padding {
+  padding: 1rem;
+}
+
+.favorable,
+.moderate,
+.severe {
+  padding: 0 5px 1px 5px;
+  border-radius: 5px;
+}
+
+.favorable {
+  background-color: green;
+}
+
+.moderate {
+  background-color: orange ;
+}
+
+.severe {
+  background-color: red;
+}
