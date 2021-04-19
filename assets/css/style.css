@@ -1,9 +1,10 @@
-#city-name {
+#city-name, 
+button {
   text-transform: capitalize;
 }
 
 .custom-padding {
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .favorable,
@@ -11,6 +12,7 @@
 .severe {
   padding: 0 5px 1px 5px;
   border-radius: 5px;
+  color: white;
 }
 
 .favorable {
