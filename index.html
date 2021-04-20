@@ -55,10 +55,10 @@
         </div>
         <!-- end search card -->
 
-        <!-- weather -->
+        <!-- weather container -->
         <div class="col-lg-9" id="weather-container">
 
-          <!-- current weather card-->
+          <!-- weather card -->
           <div class="row mb-3"> 
             <div class="col">
               <div class="card">
@@ -76,9 +76,9 @@
               </div>
             </div>
           </div>
-          <!-- end current weather card -->
+          <!-- end weather card -->
 
-          <!-- future weather card -->
+          <!-- forecast card -->
           <div class="row">
             <div class="col">
               <div class="card group">
@@ -86,7 +86,7 @@
                   <h5 class="city-name h3 mb-3">5-Day Forecast:</h5>
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 forecast">
 
-                      <!-- future day 1 -->
+                      <!-- day 1 -->
                       <div class="col">
                         <div class="card mb-3">
                           <div class="card-body bg-secondary text-white text-center rounded custom-padding">
@@ -97,9 +97,9 @@
                           </div>
                         </div>
                       </div>
-                      <!-- end future day 1 -->
+                      <!-- day 1 -->
 
-                      <!-- future day 2 -->
+                      <!-- day 2 -->
                       <div class="col">
                         <div class="card mb-3">
                           <div class="card-body bg-secondary text-white text-center rounded custom-padding">
@@ -110,9 +110,9 @@
                           </div>
                         </div>
                       </div>
-                      <!-- end future day 2 -->
+                      <!-- day 2 -->
 
-                      <!-- future day 3 -->
+                      <!-- day 3 -->
                       <div class="col">
                         <div class="card mb-3">
                           <div class="card-body bg-secondary text-white text-center rounded custom-padding">
@@ -123,9 +123,9 @@
                           </div>
                         </div>
                       </div>
-                      <!-- end future day 3 -->
+                      <!-- day 3 -->
 
-                      <!-- future day 4 -->
+                      <!-- day 4 -->
                       <div class="col">
                         <div class="card mb-3">
                           <div class="card-body bg-secondary text-white text-center rounded custom-padding">
@@ -136,9 +136,9 @@
                           </div>
                         </div>
                       </div>
-                      <!-- end future day 4 -->
+                      <!-- day 4 -->
 
-                      <!-- future day 5 -->
+                      <!-- day 5 -->
                       <div class="col">
                         <div class="card mb-3">
                           <div class="card-body bg-secondary text-white text-center rounded custom-padding">
@@ -149,23 +149,39 @@
                           </div>
                         </div>
                       </div>
-                      <!-- end future day 5 -->
+                      <!-- end day 5 -->
 
                     </div>
                   </div>
               </div>
             </div>              
           </div>
-          <!-- end future weather card -->
+          <!-- end forecast card -->
 
         </div>
-        <!-- end weather -->
+        <!-- end weather container -->
+
+        <!-- error container -->
+        <div class="col-lg-9" id="error-container">
+          <div class="row mb-3"> 
+            <div class="col">
+              <div class="card">
+                <div class="card-body bg-light">
+                <h5 class="card-title h3">
+                  <span id= "city-name">404 Not Found</span>
+                </h5>
+                  <p class="card-text">Unable to Locate City</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end error container -->
 
       </div>
     </div>
     <!-- end main container -->
     
-
     <script 
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" 
       integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" 
