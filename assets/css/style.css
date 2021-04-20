@@ -3,6 +3,11 @@ button {
   text-transform: capitalize;
 }
 
+.city-button:hover {
+  background-color: #6c757d;
+  color: white;
+}
+
 .custom-padding {
   padding: 0.5rem;
 }
