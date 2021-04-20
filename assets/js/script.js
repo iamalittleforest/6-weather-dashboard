@@ -191,7 +191,7 @@ function renderForecast(forecast) {
 // save search
 function saveSearch(searchCity) {
   
-  // add city to search history
+  // add city to search history and save in localStorage
   searchHistory.push(searchCity);
   localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 
@@ -201,7 +201,7 @@ function saveSearch(searchCity) {
   cityBtn.attr("type", "button");
   cityBtn.addClass("list-group-item list-group-item-action");
 
-  // add button to search history
+  // add button to search history list
   var searchList = $(".search-history")
   searchList.prepend(cityBtn);
 }
@@ -209,26 +209,32 @@ function saveSearch(searchCity) {
 // render search history
 function renderSearch() {
 
-  // var savedCities = JSON.parse(localStorage.getItem("searchHistory"));
-  // console.log(savedCities);
+  // get stored search history from localStorage
+  var savedCities = JSON.parse(localStorage.getItem("searchHistory"));
+  console.log(savedCities);
   
-  // // checks to see if data is stored in localStorage
-  // if (savedCities !== null) {
-  //     searchHistory = savedCities;
-  //     console.log(searchHistory);
-  // } else {
-  //     searchHistory = [];
-  // }
+  // checks to see if data is stored in localStorage
+  if (savedCities !== null) {
+      searchHistory = savedCities;
+      console.log(searchHistory);
+  } else {
+      searchHistory = [];
+  }
 
-  // var searchList = $(".search-history")
+  // create a new button for each city and append to search history list
+  var searchList = $(".search-history")
 
-  // for (var i = 0; i < searchHistory.length; i++) {
-  //   var cityBtn = $("<button>");
-  //   cityBtn.text = `${searchHistory[i]}`;
-  //   cityBtn.addClass("list-group-item", "list-group-item-action");
-  //   searchList.append(cityBtn);
-  // }  
+  for (var i = 0; i < searchHistory.length; i++) {
+    var cityBtn = $("<button>");
+    cityBtn.text(`${searchHistory[i]}`);
+    cityBtn.attr("type", "button");
+    cityBtn.attr("data-index", i);
+    cityBtn.addClass("list-group-item list-group-item-action");
+    searchList.prepend(cityBtn);
+  }  
 }
+
+renderSearch();
 
 
 
