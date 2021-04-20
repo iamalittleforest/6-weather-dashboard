@@ -31,7 +31,7 @@ function fetchWeather(searchCity) {
   fetch(apiUrl)
     .then(function(response) {
       response.json().then(function(data) {
-        console.log(data);
+        // console.log(data);
         renderWeather(data, searchCity);
       });
     });
@@ -81,7 +81,7 @@ function fetchUvIndex(cityLat, cityLon) {
   fetch(apiUrl)
   .then(function(response) {
     response.json().then(function(data) {
-      console.log(data);
+      // console.log(data);
       renderUvIndex(data);
     });
   });
@@ -113,7 +113,7 @@ function fetchForecast(cityLat, cityLon) {
   fetch(apiUrl)
   .then(function(response) {
     response.json().then(function(data) {
-      console.log(data);
+      // console.log(data);
       renderForecast(data);
     });
   });
@@ -199,7 +199,7 @@ function saveSearch(searchCity) {
   var cityBtn = $("<button>");
   cityBtn.text(`${searchCity}`);
   cityBtn.attr("type", "button");
-  cityBtn.addClass("list-group-item list-group-item-action");
+  cityBtn.addClass("list-group-item list-group-item-action city-button");
 
   // add button to search history list
   var searchList = $(".search-history")
@@ -211,12 +211,12 @@ function renderSearch() {
 
   // get stored search history from localStorage
   var savedCities = JSON.parse(localStorage.getItem("searchHistory"));
-  console.log(savedCities);
+  // console.log(savedCities);
   
   // checks to see if data is stored in localStorage
   if (savedCities !== null) {
       searchHistory = savedCities;
-      console.log(searchHistory);
+      // console.log(searchHistory);
   } else {
       searchHistory = [];
   }
@@ -229,19 +229,21 @@ function renderSearch() {
     cityBtn.text(`${searchHistory[i]}`);
     cityBtn.attr("type", "button");
     cityBtn.attr("data-index", i);
-    cityBtn.addClass("list-group-item list-group-item-action");
+    cityBtn.addClass("list-group-item list-group-item-action city-button");
     searchList.prepend(cityBtn);
   }  
 }
 
 renderSearch();
 
-
-
 // city selected from search history pulls current weather and forecast of the city
-// var historyBtnEl = $("#search-history");
-// historyBtnEl.aon("click", historyHandler);
+var historyBtnEl = $(".city-button");
+historyBtnEl.on("click", historyHandler);
 
-// function historyHandler(event) {
-//   event.preventDefault();
-// }
+function historyHandler(event) {
+  event.preventDefault();
+
+  var searchCity = $(this).text();
+  // console.log(searchCity);
+  fetchWeather(searchCity);
+}
