@@ -26,17 +26,23 @@ function searchHandler(event) {
 
 // fetch weather
 function fetchWeather(searchCity) {
-
+  
   // API call uses city to fetch weather info
   var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=imperial&appid=${apiKey}`;
-
-  fetch(apiUrl)
-    .then(function(response) {
+  
+  fetch(apiUrl).then(function(response) {
+    
+    // Check the search city is valid
+    if (response.status === 404) {
+      $("#weather-container").hide();
+      $("#error-container").show();
+    } else {
       response.json().then(function(data) {
         // console.log(data);
         renderWeather(data, searchCity);
       });
-    });
+    }
+  });
 }
 
 // render weather
@@ -44,6 +50,7 @@ function renderWeather(weather, searchCity) {
   
   // show weather container
   $("#weather-container").show();
+  $("#error-container").hide();
   
   // render each element within the weather container
   $("#city-name").text(searchCity);
@@ -68,8 +75,7 @@ function fetchUvIndex(cityLat, cityLon) {
   // API call uses latitude and longitude to fetch uv index
   var apiUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}`;
 
-  fetch(apiUrl)
-  .then(function(response) {
+  fetch(apiUrl) .then(function(response) {
     response.json().then(function(data) {
       // console.log(data);
       renderUvIndex(data);
@@ -101,8 +107,7 @@ function fetchForecast(cityLat, cityLon) {
   // API call uses latitude and longitude to fetch forecast info
   var apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=current,minutely,hourly,alerts&units=imperial&appid=${apiKey}`;
 
-  fetch(apiUrl)
-  .then(function(response) {
+  fetch(apiUrl).then(function(response) {
     response.json().then(function(data) {
       // console.log(data);
       renderForecast(data);
@@ -161,8 +166,9 @@ function saveSearch(searchCity) {
 // render search history
 function renderSearch() {
   
-  // hide weather container 
-  $("#weather-container").hide()
+  // hide weather container and error container
+  $("#weather-container").hide();
+  $("#error-container").hide();
 
   // get stored search history from localStorage
   var savedCities = JSON.parse(localStorage.getItem("searchHistory"));
@@ -200,11 +206,13 @@ function historyHandler(event) {
 }
 
 
-// clear history button clears search history and data in localStorage
+// clear history button clears search history, localStorage, and containers
 $("#clear-button").on("click", clearHistory);
 
 function clearHistory() {
   localStorage.clear();
+  searchHistory = [];
   $(".search-history").empty();
   $("#weather-container").hide();
+  $("#error-container").hide();
 }
