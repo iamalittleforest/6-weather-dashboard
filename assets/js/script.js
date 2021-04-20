@@ -2,25 +2,27 @@
 var searchHistory = [];
 const apiKey = "a57dbe6e264ba286bdc558c04ad72f43";
 
+// load saved search history list 
+renderSearch();
 
-// submit button pulls weather and forecast of the city and adds it to the search history
-var submitBtnEl = $("#search-button");
-submitBtnEl.on("click", searchHandler);
+
+// search button pulls weather and forecast of the city and adds it to the search history
+$("#search-button").on("click", searchHandler);
 
 function searchHandler(event) {
   event.preventDefault();
 
-  var searchInputEl = document.querySelector("#search-city");
-  var searchCity = searchInputEl.value.toLowerCase().trim();
+  var searchCity = $("#search-city").val().toLowerCase().trim();
 
   if(searchCity) {
     fetchWeather(searchCity);
     saveSearch(searchCity);
-    searchInputEl.value = "";
+    $("#search-city").val("");
   } else {
     alert("Field cannot be left blank");
   }
 }
+
 
 // fetch weather
 function fetchWeather(searchCity) {
@@ -40,28 +42,16 @@ function fetchWeather(searchCity) {
 // render weather
 function renderWeather(weather, searchCity) {
   
+  // show weather container
+  $("#weather-container").show();
+  
   // render each element within the weather container
-  var weatherEl = $("#weather-container");
-  weatherEl.addClass("show");
-  
-  var cityNameEl = $("#city-name");
-  cityNameEl.text(searchCity);
-  
-  var currentDateEl = $("#current-date");
-  var currentDate = moment().format("M/D/YYYY");
-  currentDateEl.text(`(${currentDate})`);
-
-  var currentIconEl = $("#current-icon");
-  currentIconEl.attr("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`)
-  
-  var cityTempEl = $("#city-temperature");
-  cityTempEl.text(weather.main.temp);
-
-  var cityHumidityEl = $("#city-humidity");
-  cityHumidityEl.text(weather.main.humidity);
-
-  var cityWindEl = $("#city-wind-speed");
-  cityWindEl.text(weather.wind.speed);
+  $("#city-name").text(searchCity);
+  $("#current-date").text(`(${moment.unix(weather.dt).format("M/D/YYYY")})`);
+  $("#current-icon").attr("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`)
+  $("#city-temperature").text(weather.main.temp);
+  $("#city-humidity").text(weather.main.humidity);
+  $("#city-wind-speed").text(weather.wind.speed);
 
   // store latitude and longitude for future use
   var cityLat = weather.coord.lat;
@@ -90,16 +80,17 @@ function fetchUvIndex(cityLat, cityLon) {
 // render UV index
 function renderUvIndex(currentCity) {
 
-  var cityUvEl = $("#city-uv-index");
-  cityUvEl.text(currentCity.value);
+  var uvIndex = currentCity.value;
+  $("#city-uv-index").text(uvIndex);
+  // console.log(uvIndex);
 
   // color code UV index based on value
-  if (currentCity.value <=2) {
-    cityUvEl.addClass("favorable");
-  } else if (currentCity.value >2 && currentCity.value <= 7) {
-    cityUvEl.addClass("moderate");
+  if (uvIndex <=2) {
+    $("#city-uv-index").attr("class", "favorable");
+  } else if (uvIndex >2 && uvIndex <= 7) {
+    $("#city-uv-index").attr("class", "moderate");
   } else {
-    cityUvEl.addClass("severe");
+    $("#city-uv-index").attr("class", "severe");
   }
 }
 
@@ -122,71 +113,35 @@ function fetchForecast(cityLat, cityLon) {
 // render forecast
 function renderForecast(forecast) {
   
-  // render day 1 forecast
-  var day1El = $("#day1");
-  day1El.text(moment.unix(forecast.daily[1].dt).format("M/D/YYYY"));
-
-  var day1IconEl = $("#day1-icon");
-  day1IconEl.attr("src", `https://openweathermap.org/img/wn/${forecast.daily[1].weather[0].icon}.png`)
+  // render dates
+  $("#day1").text(moment.unix(forecast.daily[1].dt).format("M/D/YYYY"));
+  $("#day2").text(moment.unix(forecast.daily[2].dt).format("M/D/YYYY"));
+  $("#day3").text(moment.unix(forecast.daily[3].dt).format("M/D/YYYY"));
+  $("#day4").text(moment.unix(forecast.daily[4].dt).format("M/D/YYYY"));
+  $("#day5").text(moment.unix(forecast.daily[5].dt).format("M/D/YYYY"));
   
-  var day1TempEl = $("#day1-temperature");
-  day1TempEl.text(forecast.daily[1].temp.day);
+  // render icons
+  $("#day1-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[1].weather[0].icon}.png`);
+  $("#day2-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[2].weather[0].icon}.png`);
+  $("#day3-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[3].weather[0].icon}.png`);
+  $("#day4-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[4].weather[0].icon}.png`);
+  $("#day5-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[5].weather[0].icon}.png`);
 
-  var day1HumidityEl = $("#day1-humidity");
-  day1HumidityEl.text(forecast.daily[1].humidity);
+  // render temperature
+  $("#day1-temperature").text(forecast.daily[1].temp.day);
+  $("#day2-temperature").text(forecast.daily[2].temp.day);
+  $("#day3-temperature").text(forecast.daily[3].temp.day);
+  $("#day4-temperature").text(forecast.daily[4].temp.day);
+  $("#day5-temperature").text(forecast.daily[5].temp.day);
 
-  // render day 2 forecast
-  var day2El = $("#day2");
-  day2El.text(moment.unix(forecast.daily[2].dt).format("M/D/YYYY"));
-
-  var day2IconEl = $("#day2-icon");
-  day2IconEl.attr("src", `https://openweathermap.org/img/wn/${forecast.daily[2].weather[0].icon}.png`)
-  
-  var day2TempEl = $("#day2-temperature");
-  day2TempEl.text(forecast.daily[2].temp.day);
-
-  var day2HumidityEl = $("#day2-humidity");
-  day2HumidityEl.text(forecast.daily[2].humidity);
-
-  // render day 3 forecast
-  var day3El = $("#day3");
-  day3El.text(moment.unix(forecast.daily[3].dt).format("M/D/YYYY"));
-
-  var day3IconEl = $("#day3-icon");
-  day3IconEl.attr("src", `https://openweathermap.org/img/wn/${forecast.daily[3].weather[0].icon}.png`)
-  
-  var day3TempEl = $("#day3-temperature");
-  day3TempEl.text(forecast.daily[3].temp.day);
-
-  var day3HumidityEl = $("#day3-humidity");
-  day3HumidityEl.text(forecast.daily[3].humidity);
-
-  // render day 4 forecast
-  var day4El = $("#day4");
-  day4El.text(moment.unix(forecast.daily[4].dt).format("M/D/YYYY"));
-
-  var day4IconEl = $("#day4-icon");
-  day4IconEl.attr("src", `https://openweathermap.org/img/wn/${forecast.daily[4].weather[0].icon}.png`)
-  
-  var day4TempEl = $("#day4-temperature");
-  day4TempEl.text(forecast.daily[4].temp.day);
-
-  var day4HumidityEl = $("#day4-humidity");
-  day4HumidityEl.text(forecast.daily[4].humidity);
-
-  // render day 5 forecast
-  var day5El = $("#day5");
-  day5El.text(moment.unix(forecast.daily[5].dt).format("M/D/YYYY"));
-
-  var day5IconEl = $("#day5-icon");
-  day5IconEl.attr("src", `https://openweathermap.org/img/wn/${forecast.daily[5].weather[0].icon}.png`)
-  
-  var day5TempEl = $("#day5-temperature");
-  day5TempEl.text(forecast.daily[5].temp.day);
-
-  var day5HumidityEl = $("#day5-humidity");
-  day5HumidityEl.text(forecast.daily[5].humidity);
+  // render humidity
+  $("#day1-humidity").text(forecast.daily[1].humidity);
+  $("#day2-humidity").text(forecast.daily[2].humidity);
+  $("#day3-humidity").text(forecast.daily[3].humidity);
+  $("#day4-humidity").text(forecast.daily[4].humidity);
+  $("#day5-humidity").text(forecast.daily[5].humidity);
 }
+
 
 // save search
 function saveSearch(searchCity) {
@@ -195,19 +150,19 @@ function saveSearch(searchCity) {
   searchHistory.push(searchCity);
   localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 
-  // create button
+  // create button and add to search history list
   var cityBtn = $("<button>");
   cityBtn.text(`${searchCity}`);
   cityBtn.attr("type", "button");
   cityBtn.addClass("list-group-item list-group-item-action city-button");
-
-  // add button to search history list
-  var searchList = $(".search-history")
-  searchList.prepend(cityBtn);
+  $(".search-history").prepend(cityBtn);
 }
 
 // render search history
 function renderSearch() {
+  
+  // hide weather container 
+  $("#weather-container").hide()
 
   // get stored search history from localStorage
   var savedCities = JSON.parse(localStorage.getItem("searchHistory"));
@@ -221,24 +176,20 @@ function renderSearch() {
       searchHistory = [];
   }
 
-  // create a new button for each city and append to search history list
-  var searchList = $(".search-history")
-
+  // create a new button for each saved city and add to search history list
   for (var i = 0; i < searchHistory.length; i++) {
     var cityBtn = $("<button>");
     cityBtn.text(`${searchHistory[i]}`);
     cityBtn.attr("type", "button");
     cityBtn.attr("data-index", i);
     cityBtn.addClass("list-group-item list-group-item-action city-button");
-    searchList.prepend(cityBtn);
-  }  
+    $(".search-history").prepend(cityBtn);
+  }
 }
 
-renderSearch();
 
-// city selected from search history pulls current weather and forecast of the city
-var historyBtnEl = $(".city-button");
-historyBtnEl.on("click", historyHandler);
+// city from search history pulls current weather and forecast of the city
+$(".city-button").on("click", historyHandler);
 
 function historyHandler(event) {
   event.preventDefault();
@@ -246,4 +197,14 @@ function historyHandler(event) {
   var searchCity = $(this).text();
   // console.log(searchCity);
   fetchWeather(searchCity);
+}
+
+
+// clear history button clears search history and data in localStorage
+$("#clear-button").on("click", clearHistory);
+
+function clearHistory() {
+  localStorage.clear();
+  $(".search-history").empty();
+  $("#weather-container").hide();
 }
