@@ -1,17 +1,25 @@
+/* Styling forecast cards */
+.custom-padding {
+  padding: 0.5rem;
+}
+
+/* styling city history buttons */
 #city-name, 
 button {
   text-transform: capitalize;
 }
 
-.city-button:hover {
+.city-button {
+  padding: .5rem 1rem;
+}
+
+.city-button:hover,
+.city-button:focus {
   background-color: #6c757d;
   color: white;
 }
 
-.custom-padding {
-  padding: 0.5rem;
-}
-
+/* styling uv index */
 .favorable,
 .moderate,
 .severe {
