@@ -183,12 +183,16 @@ function renderForecast(forecast) {
 // save search
 function saveSearch(searchCity) {
   
-  // add city to search history and save to localStorage
-  searchHistory.push(searchCity);
-  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
-
-  // render search history 
-  renderSearch();
+  // checks for duplicate entries
+  if (!searchHistory.includes(searchCity)) {
+    
+    // add city to search history and save to localStorage
+    searchHistory.push(searchCity);
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+  
+    // render search history 
+    renderSearch();
+  }
 }
 
 // render search history
