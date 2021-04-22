@@ -6,24 +6,24 @@ const apiKey = "a57dbe6e264ba286bdc558c04ad72f43";
 init();
 
 
-// search button pulls weather and forecast of the city and adds it to the search history
+// search button pulls weather and forecast of a valid city and adds it to the search history
 $("#search-button").on("click", searchHandler);
 
 function searchHandler(event) {
   event.preventDefault();
   
+  // formats input text
   var searchCity = $("#search-city").val().toLowerCase().trim();
   
   if(searchCity) {
     
-    // clear the input
+    // clear the input field
     $("#search-city").val("");
     
-    // save city in local storage and re-render the list
+    // save city to local storage
     saveSearch(searchCity);
-    renderSearch(searchCity);
     
-    // fetch weather for the city
+    // fetch weather for city
     fetchWeather(searchCity);
   } else {
     alert("Field cannot be left blank");
@@ -31,7 +31,7 @@ function searchHandler(event) {
 }
 
 // city from search history pulls current weather and forecast of the city
-$(".city-button").on("click", historyHandler);
+$(".search-history").on("click", ".city-button", historyHandler);
 
 function historyHandler(event) {
   event.preventDefault();
@@ -45,11 +45,15 @@ function historyHandler(event) {
 $("#clear-button").on("click", clearHistory);
 
 function clearHistory() {
+  
+  // hide weather and error containers
+  $("#weather-container").hide();
+  $("#error-container").hide();
+
+  // clear and empty everything
   localStorage.clear();
   searchHistory = [];
   $(".search-history").empty();
-  $("#weather-container").hide();
-  $("#error-container").hide();
 }
 
 
@@ -75,19 +79,14 @@ function fetchWeather(searchCity) {
 }
 
 // render weather
-function renderWeather(weather, searchCity) {
+function renderWeather(weather) {
   
-  // show weather container
+  // show weather container and hide error container
   $("#weather-container").show();
   $("#error-container").hide();
   
   // render each element within the weather container
   $("#city-name").text(weather.name);
-  // $("#current-date").text(`(${moment.unix(weather.dt).format("M/D/YYYY")})`);
-  // $("#current-icon").attr("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`)
-  // $("#city-temperature").text(weather.main.temp);
-  // $("#city-humidity").text(weather.main.humidity);
-  // $("#city-wind-speed").text(weather.wind.speed);
   
   // store latitude and longitude for future use
   var cityLat = weather.coord.lat;
@@ -104,7 +103,7 @@ function fetchUvIndex(cityLat, cityLon) {
   // API call uses latitude and longitude to fetch uv index
   var apiUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}`;
   
-  fetch(apiUrl) .then(function(response) {
+  fetch(apiUrl).then(function(response) {
     response.json().then(function(data) {
       // console.log(data);
       renderUvIndex(data);
@@ -154,28 +153,25 @@ function renderForecast(forecast) {
   $("#city-humidity").text(forecast.daily[0].humidity);
   $("#city-wind-speed").text(forecast.daily[0].wind_speed);
 
-  // render forecast dates
+  // render forecast information
   $("#day1").text(moment.unix(forecast.daily[1].dt).format("M/D/YYYY"));
   $("#day2").text(moment.unix(forecast.daily[2].dt).format("M/D/YYYY"));
   $("#day3").text(moment.unix(forecast.daily[3].dt).format("M/D/YYYY"));
   $("#day4").text(moment.unix(forecast.daily[4].dt).format("M/D/YYYY"));
   $("#day5").text(moment.unix(forecast.daily[5].dt).format("M/D/YYYY"));
   
-  // render forecast icons
   $("#day1-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[1].weather[0].icon}.png`);
   $("#day2-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[2].weather[0].icon}.png`);
   $("#day3-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[3].weather[0].icon}.png`);
   $("#day4-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[4].weather[0].icon}.png`);
   $("#day5-icon").attr("src", `https://openweathermap.org/img/wn/${forecast.daily[5].weather[0].icon}.png`);
   
-  // render forecast temperature
   $("#day1-temperature").text(forecast.daily[1].temp.day);
   $("#day2-temperature").text(forecast.daily[2].temp.day);
   $("#day3-temperature").text(forecast.daily[3].temp.day);
   $("#day4-temperature").text(forecast.daily[4].temp.day);
   $("#day5-temperature").text(forecast.daily[5].temp.day);
   
-  // render forecast humidity
   $("#day1-humidity").text(forecast.daily[1].humidity);
   $("#day2-humidity").text(forecast.daily[2].humidity);
   $("#day3-humidity").text(forecast.daily[3].humidity);
@@ -184,37 +180,22 @@ function renderForecast(forecast) {
 }
 
 
-// render search history
-function renderSearch() {
-  
-  // clear search history elements
-  $(".search-history").html("");
-  
-  // create a new button for each saved city and add to search history list
-  for (var i = 0; i < searchHistory.length; i++) {
-    var cityBtn = $("<button>");
-    cityBtn.text(`${searchHistory[i]}`);
-    cityBtn.attr("type", "button");
-    cityBtn.attr("data-index", i);
-    cityBtn.addClass("list-group-item list-group-item-action city-button");
-    $(".search-history").prepend(cityBtn);
-  }
-}
-
 // save search
 function saveSearch(searchCity) {
   
-  // save to localStorage
+  // add city to search history and save to localStorage
   searchHistory.push(searchCity);
   localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+
+  // render search history 
+  renderSearch();
 }
 
-// initialize search history
-function init() {
+// render search history
+function renderSearch() {
   
-  // hide weather container and error container
-  $("#weather-container").hide();
-  $("#error-container").hide();
+  // clear search history element
+  $(".search-history").empty();
   
   // get stored search history from localStorage
   var savedCities = JSON.parse(localStorage.getItem("searchHistory"));
@@ -228,6 +209,25 @@ function init() {
     searchHistory = [];
   }
 
+  // create a new button for each saved city and add to search history list
+  for (var i = 0; i < searchHistory.length; i++) {
+    var cityBtn = $("<button>");
+    cityBtn.text(`${searchHistory[i]}`);
+    cityBtn.attr("type", "button");
+    cityBtn.attr("data-index", i);
+    cityBtn.addClass("list-group-item list-group-item-action city-button");
+    $(".search-history").prepend(cityBtn);
+  }
+}
+
+
+// initialize search history
+function init() {
+  
+  // hide weather container and error container
+  $("#weather-container").hide();
+  $("#error-container").hide();
+  
   // render search history 
   renderSearch(); 
 }
