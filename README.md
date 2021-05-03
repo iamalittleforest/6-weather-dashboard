@@ -41,7 +41,7 @@ THEN I am again presented with current and future conditions for that city
 ```
 
 ## Screenshot
-<img src="assets/images/README-screenshot.PNG" alt="screenshot">
+<img src="assets/images/README-screenshot.png" alt="screenshot">
 
 ## Demo
 <img src="assets/images/README-demo.gif" alt="demo">
