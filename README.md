@@ -1,5 +1,4 @@
 # Weather Dashboard
-Week 6 Homework
 
 ## Link
 https://iamalittleforest.github.io/6-weather-dashboard/
